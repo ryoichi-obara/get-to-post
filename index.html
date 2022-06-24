@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>GET TO POST</title>
+</head>
+<body>
+<!-- -------------------- body starts -------------------- -->
+
+<p>
+    It can be used as a stepping stone, so DO NOT publish it. Place it in your local computer / local network.<br />
+    踏み台として使用することもできるためパブリックにアクセスできる場所に置かず、ローカルPCまたはローカルネットワークに置きましょう。<br />
+</p>
+
+<form id="form" method="post">
+    <div id="inputs"></div>
+    <button type="submit">submit</button>
+</form>
+
+<script>
+    const form = document.querySelector('#form');
+    const inputs = document.querySelector('#inputs');
+
+    const debug = new URL(document.location.href).searchParams.get('debug');
+    if (debug) {
+        debugger;
+    } else {
+        form.style.display = 'none';
+    }
+
+    // pick up '#specifiedhashvalue' and remove the first character '#'.
+    const hash = document.location.hash.substr(1);
+    const url = new URL(hash);
+
+    // set hash value as action.
+    form.action = `${url.origin}${url.pathname}`; // https://nodejs.org/api/url.html#url-strings-and-url-objects
+
+    // set search parameter as form value.
+    url.searchParams.forEach((v, k) => { // The parameter of URLSearchParams is (v, k) ...
+        const input = document.createElement('input');
+        input.name = k;
+        input.value = v;
+        inputs.appendChild(input);
+    });
+
+    if (!debug) {
+        form.submit();
+    }
+
+</script>
+
+<!-- -------------------- body ends -------------------- -->
+</body>
+</html>
