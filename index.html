@@ -21,7 +21,10 @@
     const form = document.querySelector('#form');
     const inputs = document.querySelector('#inputs');
 
-    const debug = new URL(document.location.href).searchParams.get('debug');
+    // null   = file:///C:/your-local-directory/get-to-post/index.html#https://www.google.com/search?q=ryoichi-obara#ignoredHash
+    // ''     = file:///C:/your-local-directory/get-to-post/index.html?debug#https://www.google.com/search?q=ryoichi-obara#ignoredHash
+    // 'true' = file:///C:/your-local-directory/get-to-post/index.html?debug=true#https://www.google.com/search?q=ryoichi-obara#ignoredHash
+    const debug = (new URL(document.location.href).searchParams.get('debug') != null);
     if (debug) {
         debugger;
     } else {
